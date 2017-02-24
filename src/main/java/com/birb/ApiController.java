@@ -23,4 +23,9 @@ public class ApiController {
         return new ArrayList<>((Collection<? extends BirdDescriptionEntity>) birds);
     }
 
+    /*@RequestMapping(value = "/search", method = RequestMethod.GET)
+    public List<BirdDescriptionEntity> search(){
+
+    }*/
+
 }
