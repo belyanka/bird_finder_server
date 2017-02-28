@@ -1,5 +1,6 @@
 package com.birb.repositories;
 
+import com.birb.domain.BirdSearchEntity;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
