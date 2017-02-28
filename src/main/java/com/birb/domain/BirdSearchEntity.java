@@ -1,5 +1,6 @@
 package com.birb.domain;
 
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ public class BirdSearchEntity {
     private Integer bodyType;
     private Integer tailType;
     private Integer legType;
-    private Polygon area;
+    private String area;
 
     @Id
     @Column(name = "id")
@@ -88,11 +89,11 @@ public class BirdSearchEntity {
 
     @Basic
     @Column(name = "area")
-    public Polygon getArea() {
+    public String getArea() {
         return area;
     }
 
-    public void setArea(Polygon area) {
+    public void setArea(String area) {
         this.area = area;
     }
 

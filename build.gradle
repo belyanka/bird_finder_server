@@ -38,5 +38,6 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-data-rest")
 	runtime('org.postgresql:postgresql')
 	compile group: 'org.postgis', name: 'postgis-jdbc', version: '2.1.0'
+	compile group: 'net.sf.geographiclib', name: 'GeographicLib-Java', version: '1.47'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
