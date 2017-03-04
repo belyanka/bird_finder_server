@@ -15,13 +15,13 @@ public class BirdDescriptionRepositoryImpl implements BirdDescriptionRepositoryC
     private EntityManager em;
 
     @Override
-    public List<BirdDescriptionEntity> getShortList() {
+    public List<BirdDescriptionEntity> getShortList(List<Integer> ids) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<BirdDescriptionEntity> query = cb.createQuery(BirdDescriptionEntity.class);
 
         Root<BirdDescriptionEntity> root = query.from(BirdDescriptionEntity.class);
         query.select(root.get("name"));
-
+        query.where(root.get("id").in(ids));
         return em.createQuery(query).getResultList();
     }
 }

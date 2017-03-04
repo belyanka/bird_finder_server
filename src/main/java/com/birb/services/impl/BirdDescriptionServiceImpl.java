@@ -15,7 +15,7 @@ public class BirdDescriptionServiceImpl implements BirdDescriptionService {
     BirdDescriptionRepository repository;
 
     @Override
-    public List<BirdDescriptionEntity> getBirdsByIds() {
-        return repository.getShortList();
+    public List<BirdDescriptionEntity> getBirdsByIds(List<Integer> ids) {
+        return repository.getShortList(ids);
     }
 }

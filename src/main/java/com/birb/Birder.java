@@ -8,8 +8,10 @@ import com.birb.services.BirdSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class Birder implements DataConnection {
@@ -23,36 +25,38 @@ public class Birder implements DataConnection {
     public List<BirdDescriptionEntity> searchBird(HashMap<String, String> searchParameters) {
 
         BirdCriteria criteria = new BirdCriteria();
-        if(searchParameters.get("body_type")!=null){
+        if (searchParameters.get("body_type") != null) {
             criteria.setBodyType(Integer.parseInt(searchParameters.get("body_type")));
         }
-        if(searchParameters.get("beak_type")!=null){
+        if (searchParameters.get("beak_type") != null) {
             criteria.setBeakType(Integer.parseInt(searchParameters.get("beak_type")));
         }
-        if(searchParameters.get("tail_type")!=null){
+        if (searchParameters.get("tail_type") != null) {
             criteria.setTailType(Integer.parseInt(searchParameters.get("tail_type")));
         }
-        if(searchParameters.get("leg_type")!=null){
+        if (searchParameters.get("leg_type") != null) {
             criteria.setLegType(Integer.parseInt(searchParameters.get("leg_type")));
         }
 
         List<BirdSearchEntity> searches = searchService.getSearchEntitiesByParams(criteria);
 
-        return birdService.getBirdsByIds();
+        List<Integer> ids = searches.stream().map(BirdSearchEntity::getSpId).collect(Collectors.toList());
+
+        return birdService.getBirdsByIds(ids);
     }
 
     public List<BirdSearchEntity> searchBirdTest(HashMap<String, String> searchParameters) {
         BirdCriteria criteria = new BirdCriteria();
-        if(searchParameters.get("body_type")!=null){
+        if (searchParameters.get("body_type") != null) {
             criteria.setBodyType(Integer.parseInt(searchParameters.get("body_type")));
         }
-        if(searchParameters.get("beak_type")!=null){
+        if (searchParameters.get("beak_type") != null) {
             criteria.setBeakType(Integer.parseInt(searchParameters.get("beak_type")));
         }
-        if(searchParameters.get("tail_type")!=null){
+        if (searchParameters.get("tail_type") != null) {
             criteria.setTailType(Integer.parseInt(searchParameters.get("tail_type")));
         }
-        if(searchParameters.get("leg_type")!=null){
+        if (searchParameters.get("leg_type") != null) {
             criteria.setLegType(Integer.parseInt(searchParameters.get("leg_type")));
         }
 

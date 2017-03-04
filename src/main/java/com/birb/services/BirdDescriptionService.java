@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface BirdDescriptionService  {
 
-    List<BirdDescriptionEntity> getBirdsByIds();
+    List<BirdDescriptionEntity> getBirdsByIds(List<Integer> ids);
 }
