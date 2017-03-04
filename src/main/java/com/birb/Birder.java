@@ -1,16 +1,10 @@
 package com.birb;
 
+import com.birb.domain.BirdCriteria;
 import com.birb.domain.BirdDescriptionEntity;
 import com.birb.domain.BirdSearchEntity;
 import com.birb.services.BirdSearchService;
-import com.birb.services.impl.BirdSearchServiceImpl;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.Polygon;
-import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
-import com.vividsolutions.jts.operation.distance.DistanceOp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -24,11 +18,44 @@ public class Birder implements DataConnection {
 
     @Override
     public List<BirdDescriptionEntity> searchBird(HashMap<String, String> searchParameters) {
+
+        BirdCriteria criteria = new BirdCriteria();
+        if(searchParameters.get("body_type")!=null){
+            criteria.setBodyType(Integer.parseInt(searchParameters.get("body_type")));
+        }
+        if(searchParameters.get("beak_type")!=null){
+            criteria.setBeakType(Integer.parseInt(searchParameters.get("beak_type")));
+        }
+        if(searchParameters.get("tail_type")!=null){
+            criteria.setTailType(Integer.parseInt(searchParameters.get("tail_type")));
+        }
+        if(searchParameters.get("leg_type")!=null){
+            criteria.setLegType(Integer.parseInt(searchParameters.get("leg_type")));
+        }
+
+        List<BirdSearchEntity> searches = service.getSearchEntitiesByParams(criteria);
+
+
+
         return null;
     }
 
     public List<BirdSearchEntity> searchBirdTest(HashMap<String, String> searchParameters) {
-        WKTReader wkt = new WKTReader();
+        BirdCriteria criteria = new BirdCriteria();
+        if(searchParameters.get("body_type")!=null){
+            criteria.setBodyType(Integer.parseInt(searchParameters.get("body_type")));
+        }
+        if(searchParameters.get("beak_type")!=null){
+            criteria.setBeakType(Integer.parseInt(searchParameters.get("beak_type")));
+        }
+        if(searchParameters.get("tail_type")!=null){
+            criteria.setTailType(Integer.parseInt(searchParameters.get("tail_type")));
+        }
+        if(searchParameters.get("leg_type")!=null){
+            criteria.setLegType(Integer.parseInt(searchParameters.get("leg_type")));
+        }
+
+        /*WKTReader wkt = new WKTReader();
         try {
             Geometry point = wkt.read("POINT(56.866115 35.482228)");
             Geometry point2 = wkt.read("POINT(55.970541 37.405071)");
@@ -39,7 +66,8 @@ public class Birder implements DataConnection {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return service.getSearchEntitiesByParams();
+        */
+        return service.getSearchEntitiesByParams(criteria);
     }
 
     @Override

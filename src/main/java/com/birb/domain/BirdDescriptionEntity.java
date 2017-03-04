@@ -3,7 +3,7 @@ package com.birb.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "bird_description", schema = "public", catalog = "belyanka")
+@Table(name = "bird_description", schema = "public", catalog = "postgres")
 public class BirdDescriptionEntity {
     private int id;
     private String name;

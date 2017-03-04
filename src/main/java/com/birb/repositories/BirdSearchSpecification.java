@@ -1,20 +1,18 @@
 package com.birb.repositories;
 
+import com.birb.domain.BirdCriteria;
 import com.birb.domain.BirdSearchEntity;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BirdSearchSpecification implements Specification<BirdSearchEntity> {
 
-    private final BirdSearchEntity criteria;
+    private final BirdCriteria criteria;
 
-    public BirdSearchSpecification(BirdSearchEntity cr) {
+    public BirdSearchSpecification(BirdCriteria cr) {
         this.criteria = cr;
     }
 
@@ -22,6 +20,16 @@ public class BirdSearchSpecification implements Specification<BirdSearchEntity> 
     public Predicate toPredicate(Root<BirdSearchEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         final List<Predicate> predicates = new ArrayList<Predicate>();
 
+        Path<Integer> bodyType = root.get("bodyType");
+        Path<Integer> beakType = root.get("beakType");
+
+        if(criteria.getBodyType()!=null){
+            predicates.add(cb.equal(bodyType,criteria.getBodyType()));
+        }
+
+        if(criteria.getBeakType()!=null){
+            predicates.add(cb.equal(beakType,criteria.getBeakType()));
+        }
 
         return cb.and(predicates.toArray(new Predicate[predicates.size()]));
     }

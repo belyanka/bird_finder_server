@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class ApiController {
@@ -32,6 +29,11 @@ public class ApiController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public List<BirdSearchEntity> search(@RequestParam HashMap<String, String> searchParameters){
+        for(String key : searchParameters.keySet()) {
+            System.out.println(key);
+
+            System.out.println(" -> " + searchParameters.get(key));
+        }
         return birder.searchBirdTest(searchParameters);
         //return service.getSearchEntitiesByParams();
     }
