@@ -3,6 +3,7 @@ package com.birb;
 import com.birb.domain.BirdCriteria;
 import com.birb.domain.BirdDescriptionEntity;
 import com.birb.domain.BirdSearchEntity;
+import com.birb.services.BirdDescriptionService;
 import com.birb.services.BirdSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,9 @@ import java.util.List;
 public class Birder implements DataConnection {
 
     @Autowired
-    private BirdSearchService service;
+    private BirdSearchService searchService;
+    @Autowired
+    private BirdDescriptionService birdService;
 
     @Override
     public List<BirdDescriptionEntity> searchBird(HashMap<String, String> searchParameters) {
@@ -33,11 +36,9 @@ public class Birder implements DataConnection {
             criteria.setLegType(Integer.parseInt(searchParameters.get("leg_type")));
         }
 
-        List<BirdSearchEntity> searches = service.getSearchEntitiesByParams(criteria);
+        List<BirdSearchEntity> searches = searchService.getSearchEntitiesByParams(criteria);
 
-
-
-        return null;
+        return birdService.getBirdsByIds();
     }
 
     public List<BirdSearchEntity> searchBirdTest(HashMap<String, String> searchParameters) {
@@ -67,7 +68,7 @@ public class Birder implements DataConnection {
             e.printStackTrace();
         }
         */
-        return service.getSearchEntitiesByParams(criteria);
+        return searchService.getSearchEntitiesByParams(criteria);
     }
 
     @Override

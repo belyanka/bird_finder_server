@@ -28,14 +28,13 @@ public class ApiController {
     }*/
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public List<BirdSearchEntity> search(@RequestParam HashMap<String, String> searchParameters){
+    public List<BirdDescriptionEntity> search(@RequestParam HashMap<String, String> searchParameters){
         for(String key : searchParameters.keySet()) {
             System.out.println(key);
 
             System.out.println(" -> " + searchParameters.get(key));
         }
-        return birder.searchBirdTest(searchParameters);
-        //return service.getSearchEntitiesByParams();
+        return birder.searchBird(searchParameters);
     }
 
 }
