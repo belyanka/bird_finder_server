@@ -7,85 +7,54 @@ import com.birb.services.BirdDescriptionService;
 import com.birb.services.BirdSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-public class Birder implements DataConnection {
+public class Birder {
 
     @Autowired
     private BirdSearchService searchService;
     @Autowired
     private BirdDescriptionService birdService;
 
-    @Override
     public List<BirdDescriptionEntity> searchBird(HashMap<String, String> searchParameters) {
 
         BirdCriteria criteria = new BirdCriteria();
-        if (searchParameters.get("body_type") != null) {
-            criteria.setBodyType(Integer.parseInt(searchParameters.get("body_type")));
+
+        List<String> searchKeys = new ArrayList<>(searchParameters.keySet());
+
+        searchKeys.retainAll(Config.firstImportance);
+
+        if(searchKeys.isEmpty()){
+            //todo: use second importance list
         }
-        if (searchParameters.get("beak_type") != null) {
-            criteria.setBeakType(Integer.parseInt(searchParameters.get("beak_type")));
-        }
-        if (searchParameters.get("tail_type") != null) {
-            criteria.setTailType(Integer.parseInt(searchParameters.get("tail_type")));
-        }
-        if (searchParameters.get("leg_type") != null) {
-            criteria.setLegType(Integer.parseInt(searchParameters.get("leg_type")));
+        for (String key: searchKeys){
+            criteria.setField(key,searchParameters.get(key));
         }
 
         List<BirdSearchEntity> searches = searchService.getSearchEntitiesByParams(criteria);
+
+        //todo: сортировка и отсеивание по релевантности
 
         List<Integer> ids = searches.stream().map(BirdSearchEntity::getSpId).collect(Collectors.toList());
 
         return birdService.getBirdsByIds(ids);
     }
 
-    public List<BirdSearchEntity> searchBirdTest(HashMap<String, String> searchParameters) {
-        BirdCriteria criteria = new BirdCriteria();
-        if (searchParameters.get("body_type") != null) {
-            criteria.setBodyType(Integer.parseInt(searchParameters.get("body_type")));
-        }
-        if (searchParameters.get("beak_type") != null) {
-            criteria.setBeakType(Integer.parseInt(searchParameters.get("beak_type")));
-        }
-        if (searchParameters.get("tail_type") != null) {
-            criteria.setTailType(Integer.parseInt(searchParameters.get("tail_type")));
-        }
-        if (searchParameters.get("leg_type") != null) {
-            criteria.setLegType(Integer.parseInt(searchParameters.get("leg_type")));
-        }
-
-        /*WKTReader wkt = new WKTReader();
-        try {
-            Geometry point = wkt.read("POINT(56.866115 35.482228)");
-            Geometry point2 = wkt.read("POINT(55.970541 37.405071)");
-            //Geometry polygon = wkt.read("POLYGON((55.884324 37.781568, 55.892025 37.333875, 55.592794 37.394894,55.614975 37.893766, 55.884324 37.781568))");
-
-            System.out.println(point2.distance(point) * 6356752);
-            System.out.println(point2.distance(point));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        */
-        return searchService.getSearchEntitiesByParams(criteria);
-    }
-
-    @Override
     public List<BirdDescriptionEntity> getBirdsList() {
         return null;
     }
 
-    @Override
     public BirdDescriptionEntity getBirdByName() {
         return null;
     }
 
-    @Override
     public List<BirdDescriptionEntity> getBirdListByTaxonomy() {
         return null;
     }

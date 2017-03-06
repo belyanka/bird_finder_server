@@ -1,10 +1,6 @@
 package com.birb;
 
 import com.birb.domain.BirdDescriptionEntity;
-import com.birb.domain.BirdSearchEntity;
-import com.birb.repositories.BirdDescriptionRepository;
-import com.birb.repositories.BirdSearchRepository;
-import com.birb.services.BirdSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;

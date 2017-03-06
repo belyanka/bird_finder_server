@@ -42,4 +42,21 @@ public class BirdCriteria {
     public void setLegType(Integer legType) {
         this.legType = legType;
     }
+
+    public void setField(String fieldName, String value){
+        switch(fieldName){
+            case "body_type":
+                setBodyType(Integer.parseInt(value));
+                break;
+            case "beak_type":
+                setBeakType(Integer.parseInt(value));
+                break;
+            case "main_size":
+                break;
+            case "beak_length":
+                break;
+            case "beak_width":
+                break;
+        }
+    }
 }

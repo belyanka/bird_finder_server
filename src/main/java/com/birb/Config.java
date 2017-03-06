@@ -1,5 +1,8 @@
 package com.birb;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Config {
 
     //BODY TYPE
@@ -31,5 +34,6 @@ public class Config {
     public static int TAIL_TYPE_PIKE = 5;
     public static int TAIL_TYPE_LUSH = 6;
 
-
+    public static List<String> firstImportance = Arrays.asList("body_type", "beak_type", "main_size", "beak_length", "beak_width");
+    public static List<String> secondImportance = Arrays.asList("leg_type", "area");
 }
