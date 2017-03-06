@@ -25,6 +25,11 @@ public class Birder {
 
     public List<BirdDescriptionEntity> searchBird(HashMap<String, String> searchParameters) {
 
+        BirdCriteria originalCriteria = new BirdCriteria();
+        for(Map.Entry<String, String> entry: searchParameters.entrySet()){
+            originalCriteria.setField(entry.getKey(),entry.getValue());
+        }
+
         BirdCriteria criteria = new BirdCriteria();
 
         List<String> searchKeys = new ArrayList<>(searchParameters.keySet());
@@ -38,9 +43,8 @@ public class Birder {
             criteria.setField(key,searchParameters.get(key));
         }
 
-        List<BirdSearchEntity> searches = searchService.getSearchEntitiesByParams(criteria);
-
-        //todo: сортировка и отсеивание по релевантности
+        //сортировка и отсеивание по релевантности
+        List<BirdSearchEntity> searches = Relevance.setRelevanceOrder(searchService.getSearchEntitiesByParams(criteria), originalCriteria);
 
         List<Integer> ids = searches.stream().map(BirdSearchEntity::getSpId).collect(Collectors.toList());
 
