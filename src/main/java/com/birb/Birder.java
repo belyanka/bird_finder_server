@@ -45,7 +45,7 @@ public class Birder {
 
         //сортировка и отсеивание по релевантности
         List<BirdSearchEntity> searches = Relevance.setRelevanceOrder(searchService.getSearchEntitiesByParams(criteria), originalCriteria);
-
+        //List<BirdSearchEntity> searches = searchService.getSearchEntitiesByParams(criteria);
         List<Integer> ids = searches.stream().map(BirdSearchEntity::getSpId).collect(Collectors.toList());
 
         return birdService.getBirdsByIds(ids);

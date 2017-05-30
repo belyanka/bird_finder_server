@@ -20,7 +20,7 @@ public class BirdDescriptionRepositoryImpl implements BirdDescriptionRepositoryC
         CriteriaQuery<BirdDescriptionEntity> query = cb.createQuery(BirdDescriptionEntity.class);
 
         Root<BirdDescriptionEntity> root = query.from(BirdDescriptionEntity.class);
-        query.multiselect(root.get("name"),root.get("species"),root.get("previewPhoto"));
+        //query.multiselect(root.get("name"),root.get("species"),root.get("previewPhoto"));
         query.where(root.get("id").in(ids));
         return em.createQuery(query).getResultList();
     }

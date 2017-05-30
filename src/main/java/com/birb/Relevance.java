@@ -5,10 +5,7 @@ import com.birb.domain.BirdCriteria;
 import com.birb.domain.BirdSearchEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 import static java.lang.Math.abs;
 
@@ -42,7 +39,7 @@ public class Relevance {
             sortedSearch.remove(sortedSearch.lastKey());
         }
 
-        return (List<BirdSearchEntity>) sortedSearch.values();
+        return new ArrayList<BirdSearchEntity>(sortedSearch.values());
     }
 
     class RelComparator implements Comparator<Integer>{
